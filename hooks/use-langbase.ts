@@ -47,6 +47,8 @@ const useLangbase = () => {
     });
 
     const shouldRespond = await response.json();
+
+    console.log(shouldRespond);
     return shouldRespond;
   };
 
@@ -60,6 +62,8 @@ const useLangbase = () => {
     });
 
     const writer = await response.json();
+
+    console.log(writer);
     return writer;
   };
 
@@ -78,16 +82,12 @@ const useLangbase = () => {
       return;
     }
 
-    if (response.body) {
-      const stream = fromReadableStream(response.body);
+    const data = await response.json();
+    setEmailReply(data.emailReply);
 
-      for await (const chunk of stream) {
-        const content = chunk?.choices[0]?.delta?.content || "";
-        content && setEmailReply((prev) => prev + content);
-      }
-    }
-
-    return emailReply;
+    console.log(data);
+    console.log(data.emailReply);
+    return data.emailReply;
   };
 
   const sendEmailToAgent = async (email: string) => {
@@ -180,7 +180,7 @@ const useLangbase = () => {
       },
     }));
 
-    // Generate the email response
+    // /Generate the email response
     const reply = await generateEmailReply(tone, summary);
 
     setCompletedSteps((prev) => ({
