@@ -4,6 +4,7 @@ import { Button } from './ui/button';
 import Textarea from 'react-textarea-autosize';
 import { IconChat, IconSpinner } from './ui/icons';
 import { useEnterSubmit } from '@/lib/hooks/use-enter-submit';
+import { draftEmail, fetchAndPassGithubActions } from '@/utils/actions';
 
 export const EmailInput = ({
 	email,
@@ -23,6 +24,8 @@ export const EmailInput = ({
 	const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
 		e.preventDefault();
 		await sendEmailToAgent(email);
+		// await fetchAndPassGithubActions()
+		await draftEmail()
 	};
 
 	const handleReset = () => {

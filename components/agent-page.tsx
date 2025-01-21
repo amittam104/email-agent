@@ -7,7 +7,10 @@ import { Welcome } from "./welcome";
 import { UseCases } from "./use-cases";
 import useLangbase from "@/hooks/use-langbase";
 import { isEmptyObject } from "@/utils/is-object-empty";
-import { Button } from "./ui/button";
+import { checkConnection, newConnection } from "@/utils/actions";
+
+
+
 
 export function AgentPage({ className }: React.ComponentProps<"div">) {
   const {
@@ -20,9 +23,12 @@ export function AgentPage({ className }: React.ComponentProps<"div">) {
     resetAgent,
   } = useLangbase();
 
+
+
   return (
     <div className="min-h-screen">
       <Welcome />
+      <button type='button' onClick={async() => newConnection()}>Connect your Calender</button>
       <EmailInput
         email={inputEmail}
         setEmail={setInputEmail}
